@@ -1,10 +1,5 @@
 <?php
-/**
- * linear regression function
- * @param $x array x-coords
- * @param $y array y-coords
- * @returns array() m=>slope, b=>intercept
- */
+
  echo "<a href='Clustering.php'>Click here to find the maximum people that visits you!</a>";
  
 mysqli_connect("localhost","root","","dm_db");
@@ -22,17 +17,23 @@ while ($row = mysqli_fetch_array($result)) {
 }
 //$data=array(18.5,19,21,17.8,25.2,32.5,39);
 //$deta=array(20,21,25,18,39,51,65);
-$bmi2=$_GET["bmi"];
+$bmi2=$_GET["bmi"];		//get bmi from user using which the heart risk factor will be calculated
 
 $var=array(linear_regression($bmi,$rf,$bmi2));
 
+/**
+ * linear regression function
+ * @param $x array x-coords
+ * @param $y array y-coords
+ * @returns array() m=>slope, b=>intercept
+ */
 
 function linear_regression($x, $y, $bmi2) {
 
   // calculate number points
   $n = count($x);
   
-  // ensure both arrays of points are the same size
+  // to ensure both arrays of points are the same size
   if ($n != count($y)) {
 
     trigger_error("linear_regression(): Number of elements in coordinate arrays do not match.", E_USER_ERROR);
@@ -61,7 +62,7 @@ function linear_regression($x, $y, $bmi2) {
     
   
 
-  ///calculating performance :RMSE
+  ///calculating performance :RMSE (Root Mean Square Error)
 for($i = 0; $i < $n; $i++) {
   
    $new[$i]=$m+($b*$x[$i]);   //predicted y (i.e.predicted risk factor)
